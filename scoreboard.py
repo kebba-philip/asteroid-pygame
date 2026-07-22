@@ -15,3 +15,12 @@ class Scoreboard:
             "white"
         )
         screen.blit(score_text, (10, 10))
+
+    def draw_lives(self, screen, lives):
+        lives_text = self.font.render(
+            f"Lives: {lives}",
+            True,
+            "white"
+        )
+
+        screen.blit(lives_text, (10, 40))
