@@ -82,7 +82,6 @@ uv run main.py
 
 ## Gameplay
 
-<<<<<<< HEAD
 - Destroy asteroids to increase your score.
 - Larger asteroids split into smaller asteroids when destroyed.
 - Avoid collisions to preserve your lives.
