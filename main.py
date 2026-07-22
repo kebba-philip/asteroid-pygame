@@ -1,15 +1,12 @@
-from doctest import DocTestFailure
-
 import pygame
-import asteroid
-import asteroidfield
 from player import Player
 from asteroid import Asteroid
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, LINE_WIDTH
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state, log_event
 from asteroidfield import AsteroidField
 import sys
 from shot import Shot
+from scoreboard import Scoreboard
 
 
 def main():
@@ -30,7 +27,9 @@ def main():
     Player.containers = (updatable, drawable)
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+
     player = Player(x, y)
+    scoreboard = Scoreboard()
 
     clock = pygame.time.Clock()
     dt = 0.0
@@ -49,22 +48,21 @@ def main():
         for obj in drawable:
             obj.draw(screen)
 
-        for obj in asteroids:
-            if obj.collides_with(player):
+        scoreboard.draw(screen)
+
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
 
             for shot in shots:
-                if obj.collides_with(shot):
+                if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
                     shot.kill()
-                    obj.kill()
-
-
-
-
-
+                    scoreboard.add_score(10)
+                    asteroid.split()
 
         pygame.display.flip()
 
@@ -73,7 +71,6 @@ def main():
 
         if player.update:
             player.timer -= dt
-
 
 
 if __name__ == "__main__":
