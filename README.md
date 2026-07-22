@@ -91,7 +91,7 @@ uv run main.py
 ## Author
 
 Built as a learning project while practicing Python, object-oriented programming, and game development with Pygame.
-=======
+
 * Destroy asteroids to increase your score.
 * Larger asteroids split into smaller asteroids when destroyed.
 * Avoid collisions to preserve your lives.
@@ -102,4 +102,3 @@ Built as a learning project while practicing Python, object-oriented programming
 **Kebba Njie**
 
 Built as part of the guided Asteroids project from [Boot.dev](https://www.boot.dev/) while practicing Python, object-oriented programming, and game development with Pygame.
->>>>>>> 5894598 (galaxy saviour)
