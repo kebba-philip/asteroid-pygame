@@ -1,12 +1,15 @@
+from doctest import DocTestFailure
+
 import pygame
 import asteroid
 import asteroidfield
 from player import Player
 from asteroid import Asteroid
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, LINE_WIDTH
 from logger import log_state, log_event
 from asteroidfield import AsteroidField
 import sys
+from shot import Shot
 
 
 def main():
@@ -16,10 +19,12 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
 
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (shots, drawable, updatable)
     asteroid_field = AsteroidField()
 
     Player.containers = (updatable, drawable)
@@ -54,6 +59,9 @@ def main():
 
         #limits frame rate to 60FPS
         dt = clock.tick(60) / 1000
+
+        if player.update:
+            player.timer -= dt
 
 
 
