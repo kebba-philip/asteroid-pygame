@@ -7,7 +7,7 @@ from asteroidfield import AsteroidField
 import sys
 from shot import Shot
 from scoreboard import Scoreboard
-
+from gamestate import GameState
 
 def main():
     pygame.init()
@@ -30,6 +30,7 @@ def main():
 
     player = Player(x, y)
     scoreboard = Scoreboard()
+    game_state = GameState()
 
     clock = pygame.time.Clock()
     dt = 0.0
@@ -49,13 +50,19 @@ def main():
             obj.draw(screen)
 
         scoreboard.draw(screen)
+        scoreboard.draw_lives(screen, game_state.lives)
 
 
         for asteroid in asteroids:
-            if asteroid.collides_with(player):
-                log_event("player_hit")
-                print("Game over!")
-                sys.exit()
+            if asteroid.collides_with(player) and player.invincible_timer <= 0:
+                game_state.lose_life()
+
+                if game_state.is_game_over():
+                    print("Game Over!")
+                    sys.exit()
+
+                player.respawn()
+                break
 
             for shot in shots:
                 if asteroid.collides_with(shot):
